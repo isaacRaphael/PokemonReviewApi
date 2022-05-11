@@ -32,7 +32,9 @@ namespace PokemonReviewApp
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddScoped<IPokemonRepostory,PokemonRepository>();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -18,6 +18,7 @@ namespace PokemonReviewApp.Controllers
         private readonly IPokemonRepostory prepo;
         private readonly IMapper mapper;
 
+
         public PokemonController(IPokemonRepostory prepo, IMapper mapper)
         {
             this.prepo = prepo;
@@ -25,17 +26,13 @@ namespace PokemonReviewApp.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(ICollection<Pokemon>))]
-        public IActionResult GetPokemons()
+        public ActionResult<ICollection<PokemonDto>> GetPokemons()
         {   var pokemons = mapper.Map<List<PokemonDto>>(prepo.GetPokemons());
             return Ok(pokemons);
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(200, Type = typeof(Pokemon))]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        public IActionResult GetPokemon(int id)
+        public ActionResult<PokemonDto> GetPokemon(int id)
         {
             if (!prepo.PokemonExists(id))
                 return NotFound();
@@ -48,13 +45,11 @@ namespace PokemonReviewApp.Controllers
         }
 
         [HttpGet("{id}/rating")]
-        [ProducesResponseType(200, Type = typeof(Pokemon))]
-        [ProducesResponseType(400)]
-        public IActionResult GetPokemonRating(int id)
+        public ActionResult<int> GetPokemonRating(int id)
         {
             if (!prepo.PokemonExists(id))
                 return NotFound();
-
+             
             var rating = prepo.GetPokemonRating(id);
 
             if (!ModelState.IsValid)
