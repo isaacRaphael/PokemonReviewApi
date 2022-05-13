@@ -34,6 +34,9 @@ namespace PokemonReviewApp
             services.AddScoped<IPokemonRepostory,PokemonRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IReviewerRepository, ReviewerRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
             services.AddControllers();
             services.AddSwaggerGen(c =>
